@@ -1,5 +1,6 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DELETE_CHARACTER, SET_SEARCH_INPUT } from "../types";
+import { DELETE_CHARACTER, LIKE_CHARACTER, SET_SEARCH_INPUT } from "../types";
 
 const Characters = () => {
   const simpsons = useSelector((state) => state.simpsons);
@@ -10,7 +11,11 @@ const Characters = () => {
     dispatch({ type: DELETE_CHARACTER, payload: id });
   };
 
-  //vanialla react
+  const onLike = (id) => {
+    dispatch({ type: LIKE_CHARACTER, payload: id });
+  };
+
+  // Filter the characters based on the search input
   const filtered =
     simpsons &&
     simpsons.filter((item) => {
@@ -26,13 +31,12 @@ const Characters = () => {
         }}
       />
       {filtered &&
-        filtered.map((item) => {
-          return (
-            <p key={item.id} onClick={() => onDelete(item.id)}>
-              {item.quote}
-            </p>
-          );
-        })}
+        filtered.map((item) => (
+          <div key={item.id}>
+            <p onClick={() => onDelete(item.id)}>{item.quote}</p>
+            <p onClick={() => onLike(item.id)}>{item.quote}</p>
+          </div>
+        ))}
     </>
   );
 };

@@ -1,4 +1,9 @@
-import { DELETE_CHARACTER, SET_SEARCH_INPUT, SET_SIMPSONS } from "./types";
+import {
+  DELETE_CHARACTER,
+  LIKE_CHARACTER,
+  SET_SEARCH_INPUT,
+  SET_SIMPSONS,
+} from "./types";
 
 const initialState = { search: "" };
 
@@ -10,18 +15,25 @@ export function reducer(state = initialState, action) {
       return _state;
     }
 
-    case DELETE_CHARACTER: {
-      const simpsons = [...state.simpsons];
+    // case DELETE_CHARACTER: {
+    //   const simpsons = [...state.simpsons];
 
-      const index = simpsons.findIndex((item) => item.id === action.payload);
+    //   const index = simpsons.findIndex((item) => item.id === action.payload);
 
-      simpsons.splice(index, 1);
+    //   simpsons.splice(index, 1);
 
-      return { ...state, simpsons };
-    }
+    //   return { ...state, simpsons };
+    // }
 
     case SET_SEARCH_INPUT: {
       return { ...state, search: action.payload };
+    }
+
+    case LIKE_CHARACTER: {
+      const simpsons = [...state.simpsons];
+      const index = simpsons.findIndex((item) => item.id === action.payload);
+      simpsons[index].liked = !simpsons[index].liked;
+      return { ...state, simpsons };
     }
 
     default:

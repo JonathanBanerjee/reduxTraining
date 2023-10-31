@@ -15,6 +15,7 @@ const App = () => {
 
       data.forEach((element) => {
         element.id = Math.random();
+        element.liked = false;
       });
 
       dispatch({ type: SET_SIMPSONS, payload: data });
